@@ -7,6 +7,6 @@ function Modes(props) {
 }
 
 ReactDOM.render(
-  <Hello name="World" />,
-  document.getElementById('application')
+	<Modes modes={[{icon: "A"},{icon: "B"}]} />,
+	document.getElementById('application')
 );
