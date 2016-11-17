@@ -1,11 +1,1 @@
 The react-browser provides an interface similar to a file browser, for any data that can be mapped to a tree structure.
-
-NATEARN'S LAWS FOR SOFTWARE DEVELOPMET
-
-1) The master branch must ALWAYS build
-2) If there are tests, ALL tests on the master branch PASS
-
-NATEARN'S GUIDELINES FOR SOFTWARE DEVELOPMENT
-
-1) Use the same code formatting as the rest of the project, even if it sucks
-2) Comments are ONLY for communicating the intent/purpose of a confusing piece of code
