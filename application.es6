@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Kefir from "kefir";
+import _ from "lodash";
 
 function Modes(props) {
 	const buttons = props.modes.map((mode) => (
@@ -26,11 +27,6 @@ function Path(props) {
 	return <ol>{buttons}</ol>;
 }
 
-// create some data to render
-const modes = [{icon: "A"},{icon: "B"}];
-const modePool = Kefir.pool();
-function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
-const selectedMode = modePool.toProperty(() => modes[0]);
 function Browser(props) {
 	return (
 		<div className="browser">
@@ -42,43 +38,47 @@ function Browser(props) {
 	);
 }
 
-const tree = {
-	name: "root",
-	children: [
-		{
-			name: "trunk",
-			children: [
-				{
-					name: "branch",
-					children: [
+// create some data to render
+const example = {name: "tree", children: [
+	{name: "root", children: [
+		{name: "trunk", children: [
+				{name: "branch", children: [
+						{name: "fruit", children: []},
+						{name: "flower", children: []},
 						{name: "leaf", children: []},
 						{name: "stem", children: []}
 					]
 				}
 			]
 		},
-		{name: "bark", children: []},
-	]
-};
+		{name: "bark", children: [
+			{name: "bugs", chilren: []}
+		]}
+	]}
+]};
+const modes = [{icon: "A"},{icon: "B"}];
 
+const modePool = Kefir.pool();
+function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
+const selectedMode = modePool.toProperty(() => modes[0]);
 const branchPool = Kefir.pool();
 function selectBranch(branch) { branchPool.plug(Kefir.constant(branch)); }
-const selectedBranch = branchPool.toProperty(() => tree);
-const path = [tree,
-              tree.children[0],
-              tree.children[0].children[0],
-              tree.children[0].children[0].children[1]
-             ];
+const selectedBranch = branchPool.toProperty(() => example);
 
-const model = Kefir.combine([selectedMode, selectedBranch]);
-model.onValue(([mode,branch]) => {
+const path = selectedBranch.scan((curPath,nextBranch) => (
+	// take path branches until nextBranch is encountered, then append nextBranch
+	_.concat(_.takeWhile(curPath,branch => branch != nextBranch),nextBranch)
+),[]);
+
+const model = Kefir.combine([selectedMode, selectedBranch, path]);
+model.onValue(([m,b,p]) => {
 	ReactDOM.render(
 		<Browser
-			path={path}
-			selectedBranch={branch}
+			path={p}
+			selectedBranch={b}
 			selectBranch={selectBranch}
 			modes={modes}
-			selectedMode={mode}
+			selectedMode={m}
 			selectMode={selectMode}
 		/>,
 		document.getElementById('application')
