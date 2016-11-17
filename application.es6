@@ -31,6 +31,16 @@ const modes = [{icon: "A"},{icon: "B"}];
 const modePool = Kefir.pool();
 function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
 const selectedMode = modePool.toProperty(() => modes[0]);
+function Browser(props) {
+	return (
+		<div className="browser">
+			<div className="header">
+				<Path path={props.path} selectedBranch={props.selectedBranch} select={props.selectBranch} />
+				<Modes modes={props.modes} selectedMode={props.selectedMode} select={props.selectMode} />
+			</div>
+		</div>
+	);
+}
 
 const tree = {
 	name: "root",
@@ -63,10 +73,14 @@ const path = [tree,
 const model = Kefir.combine([selectedMode, selectedBranch]);
 model.onValue(([mode,branch]) => {
 	ReactDOM.render(
-		<div>
-			<Path path={path} selectedBranch={branch} select={selectBranch} />
-			<Modes modes={modes} selectedMode={mode} select={selectMode} />
-		</div>,
+		<Browser
+			path={path}
+			selectedBranch={branch}
+			selectBranch={selectBranch}
+			modes={modes}
+			selectedMode={mode}
+			selectMode={selectMode}
+		/>,
 		document.getElementById('application')
 	);
 });
