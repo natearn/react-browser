@@ -34,6 +34,13 @@ function ButtonView(props) {
 	return <ul>{branches}</ul>;
 }
 
+function LinkView(props) {
+	const branches = props.branch.children.map((b) =>
+		<a href="#" onClick={() => props.select(b)} key={b.name}>{b.name}</a>
+	);
+	return <ul>{branches}</ul>;
+}
+
 function Browser(props) {
 	return (
 		<div className="browser">
@@ -41,7 +48,10 @@ function Browser(props) {
 				<Path path={props.path} selectedBranch={props.selectedBranch} select={props.selectBranch} />
 				<Modes modes={props.modes} selectedMode={props.selectedMode} select={props.selectMode} />
 			</div>
-			<ButtonView branch={props.selectedBranch} select={props.selectBranch} />
+			{props.selectedMode.component({
+				branch: props.selectedBranch,
+				select: props.selectBranch
+			})}
 		</div>
 	);
 }
@@ -64,7 +74,10 @@ const example = {name: "tree", children: [
 		]}
 	]}
 ]};
-const modes = [{icon: "A"},{icon: "B"}];
+const modes = [
+	{icon: "Button", component: ButtonView},
+	{icon: "Link", component: LinkView}
+];
 
 const modePool = Kefir.pool();
 function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
