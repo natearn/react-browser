@@ -52,7 +52,7 @@ const example = {name: "tree", children: [
 			]
 		},
 		{name: "bark", children: [
-			{name: "bugs", chilren: []}
+			{name: "bugs", children: []}
 		]}
 	]}
 ]};
