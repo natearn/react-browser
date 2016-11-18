@@ -5,38 +5,36 @@ import _ from "lodash";
 
 function Modes(props) {
 	const buttons = props.modes.map((mode) => (
-		<button
+		<li key={mode.name}><button
 			onClick={() => props.select(mode)}
 			className={props.selectedMode == mode ? "selected" : ""}
-			key={mode.name}
 		>
 			{mode.name}
-		</button>));
+		</button></li>));
 	return <ul>{buttons}</ul>;
 }
 
 function Path(props) {
 	const buttons = props.path.map((branch) => (
-		<button
+		<li key={branch.name}><button
 			onClick={() => props.select(branch)}
 			className={props.selectedBranch == branch ? "selected" : ""}
-			key={branch.name}
 		>
 			{branch.name}
-		</button>));
+		</button></li>));
 	return <ol>{buttons}</ol>;
 }
 
 function ButtonView(props) {
 	const branches = props.branch.children.map((b) =>
-		<button onClick={() => props.select(b)} key={b.name}>{b.name}</button>
+		<li key={b.name}><button onClick={() => props.select(b)}>{b.name}</button></li>
 	);
 	return <ul>{branches}</ul>;
 }
 
 function LinkView(props) {
 	const branches = props.branch.children.map((b) =>
-		<a href="#" onClick={() => props.select(b)} key={b.name}>{b.name}</a>
+		<li key={b.name}><a href="#" onClick={() => props.select(b)}>{b.name}</a></li>
 	);
 	return <ul>{branches}</ul>;
 }
