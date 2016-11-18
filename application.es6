@@ -39,6 +39,13 @@ function LinkView(props) {
 	return <ul>{branches}</ul>;
 }
 
+function ThumbnailView(props) {
+	const branches = props.branch.children.map((b,i) =>
+		<li key={b.name}><img src={b.thumbnail} alt={b.name} onClick={() => props.select(b)} /></li>
+	);
+	return <ul>{branches}</ul>;
+}
+
 function Browser(props) {
 	return (
 		<div className="browser">
@@ -73,17 +80,16 @@ const example = {name: "tree", children: [
 	]}
 ]};
 const modes = [
+	{name: "Thumbnail", component: ThumbnailView},
 	{name: "Button", component: ButtonView},
 	{name: "Link", component: LinkView}
 ];
-
 const modePool = Kefir.pool();
 function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
 const selectedMode = modePool.toProperty(() => modes[0]);
 const branchPool = Kefir.pool();
 function selectBranch(branch) { branchPool.plug(Kefir.constant(branch)); }
 const selectedBranch = branchPool.toProperty(() => example);
-
 const path = selectedBranch.scan((curPath,nextBranch) => (
 	// take path branches until nextBranch is encountered, then append nextBranch
 	_.concat(_.takeWhile(curPath,branch => branch != nextBranch),nextBranch)
