@@ -27,6 +27,13 @@ function Path(props) {
 	return <ol>{buttons}</ol>;
 }
 
+function ButtonView(props) {
+	const branches = props.branch.children.map((b) =>
+		<button onClick={() => props.select(b)} key={b.name}>{b.name}</button>
+	);
+	return <ul>{branches}</ul>;
+}
+
 function Browser(props) {
 	return (
 		<div className="browser">
@@ -34,6 +41,7 @@ function Browser(props) {
 				<Path path={props.path} selectedBranch={props.selectedBranch} select={props.selectBranch} />
 				<Modes modes={props.modes} selectedMode={props.selectedMode} select={props.selectMode} />
 			</div>
+			<ButtonView branch={props.selectedBranch} select={props.selectBranch} />
 		</div>
 	);
 }
