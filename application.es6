@@ -8,9 +8,9 @@ function Modes(props) {
 		<button
 			onClick={() => props.select(mode)}
 			className={props.selectedMode == mode ? "selected" : ""}
-			key={mode.icon}
+			key={mode.name}
 		>
-			{mode.icon}
+			{mode.name}
 		</button>));
 	return <ul>{buttons}</ul>;
 }
@@ -75,8 +75,8 @@ const example = {name: "tree", children: [
 	]}
 ]};
 const modes = [
-	{icon: "Button", component: ButtonView},
-	{icon: "Link", component: LinkView}
+	{name: "Button", component: ButtonView},
+	{name: "Link", component: LinkView}
 ];
 
 const modePool = Kefir.pool();
