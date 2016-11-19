@@ -97,7 +97,7 @@ const branchPool = Kefir.pool();
 function selectBranch(branch) { branchPool.plug(Kefir.constant(branch)); }
 const selectedBranch = branchPool.toProperty(() => example);
 const path = selectedBranch.scan((curPath,nextBranch) => (
-	// take path branches until nextBranch is encountered, then append nextBranch
+	// the shortest prefix of (path + nextBranch) that terminates with nextBranch
 	_.concat(_.takeWhile(curPath,branch => branch != nextBranch),nextBranch)
 ),[]);
 
