@@ -8,7 +8,7 @@ function Modes(props) {
 		<li key={mode.name} style={{display: "inline"}}>
 		<button
 			onClick={() => props.select(mode)}
-			style={{borderStyle: props.selectedMode == mode ? "inset" : "outset"}}
+			style={{borderStyle: props.activeMode == mode ? "inset" : "outset"}}
 		>
 			{mode.name}
 		</button>
@@ -22,7 +22,7 @@ function Path(props) {
 		<li key={branch.name} style={{display: "inline"}}>
 		<button
 			onClick={() => props.select(branch)}
-			style={{borderStyle: props.selectedBranch == branch ? "inset" : "outset"}}
+			style={{borderStyle: props.activeBranch == branch ? "inset" : "outset"}}
 		>
 			{branch.name}
 		</button>
@@ -56,11 +56,11 @@ function Browser(props) {
 	return (
 		<div className="browser">
 			<div className="header">
-				<Path path={props.path} selectedBranch={props.selectedBranch} select={props.selectBranch} />
-				<Modes modes={props.modes} selectedMode={props.selectedMode} select={props.selectMode} />
+				<Path path={props.path} activeBranch={props.activeBranch} select={props.selectBranch} />
+				<Modes modes={props.modes} activeMode={props.activeMode} select={props.selectMode} />
 			</div>
-			{props.selectedMode.component({
-				branch: props.selectedBranch,
+			{props.activeMode.component({
+				branch: props.activeBranch,
 				select: props.selectBranch
 			})}
 		</div>
@@ -92,24 +92,24 @@ const modes = [
 ];
 const modePool = Kefir.pool();
 function selectMode(mode) { modePool.plug(Kefir.constant(mode)); }
-const selectedMode = modePool.toProperty(() => modes[0]);
+const activeMode = modePool.toProperty(() => modes[0]);
 const branchPool = Kefir.pool();
 function selectBranch(branch) { branchPool.plug(Kefir.constant(branch)); }
-const selectedBranch = branchPool.toProperty(() => example);
-const path = selectedBranch.scan((curPath,nextBranch) => (
+const activeBranch = branchPool.toProperty(() => example);
+const path = activeBranch.scan((curPath,nextBranch) => (
 	// the shortest prefix of (path + nextBranch) that terminates with nextBranch
 	_.concat(_.takeWhile(curPath,branch => branch != nextBranch),nextBranch)
 ),[]);
 
-const model = Kefir.combine([selectedMode, selectedBranch, path]);
+const model = Kefir.combine([activeMode, activeBranch, path]);
 model.onValue(([m,b,p]) => {
 	ReactDOM.render(
 		<Browser
 			path={p}
-			selectedBranch={b}
+			activeBranch={b}
 			selectBranch={selectBranch}
 			modes={modes}
-			selectedMode={m}
+			activeMode={m}
 			selectMode={selectMode}
 		/>,
 		document.getElementById('application')
