@@ -5,24 +5,30 @@ import _ from "lodash";
 
 function Modes(props) {
 	const buttons = props.modes.map((mode) => (
-		<li key={mode.name}><button
+		<li key={mode.name} style={{display: "inline"}}>
+		<button
 			onClick={() => props.select(mode)}
 			style={{borderStyle: props.selectedMode == mode ? "inset" : "outset"}}
 		>
 			{mode.name}
-		</button></li>));
-	return <ul>{buttons}</ul>;
+		</button>
+		</li>
+	));
+	return <ul style={{display: "inline"}}>{buttons}</ul>;
 }
 
 function Path(props) {
 	const buttons = props.path.map((branch) => (
-		<li key={branch.name}><button
+		<li key={branch.name} style={{display: "inline"}}>
+		<button
 			onClick={() => props.select(branch)}
 			style={{borderStyle: props.selectedBranch == branch ? "inset" : "outset"}}
 		>
 			{branch.name}
-		</button></li>));
-	return <ol>{buttons}</ol>;
+		</button>
+		</li>
+	));
+	return <ol style={{display: "inline"}}>{buttons}</ol>;
 }
 
 function ButtonView(props) {
