@@ -7,7 +7,7 @@ function Modes(props) {
 	const buttons = props.modes.map((mode) => (
 		<li key={mode.name}><button
 			onClick={() => props.select(mode)}
-			className={props.selectedMode == mode ? "selected" : ""}
+			style={{borderStyle: props.selectedMode == mode ? "inset" : "outset"}}
 		>
 			{mode.name}
 		</button></li>));
@@ -18,7 +18,7 @@ function Path(props) {
 	const buttons = props.path.map((branch) => (
 		<li key={branch.name}><button
 			onClick={() => props.select(branch)}
-			className={props.selectedBranch == branch ? "selected" : ""}
+			style={{borderStyle: props.selectedBranch == branch ? "inset" : "outset"}}
 		>
 			{branch.name}
 		</button></li>));
