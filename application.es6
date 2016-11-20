@@ -68,7 +68,7 @@ function Browser(props) {
 }
 
 // create some data to render
-const example = {name: "tree", children: [
+var example = {name: "tree", children: [
 	{name: "root", children: [
 		{name: "trunk", children: [
 				{name: "branch", children: [
@@ -85,6 +85,12 @@ const example = {name: "tree", children: [
 		]}
 	]}
 ]};
+function addParent(tree) {
+	tree.children.map(b => b.parent = tree);
+	tree.children.map(b => addParent(b));
+}
+addParent(example);
+
 const modes = [
 	{name: "Thumbnail", component: ThumbnailView},
 	{name: "Button", component: ButtonView},
@@ -96,9 +102,10 @@ const activeMode = modePool.toProperty(() => modes[0]);
 const branchPool = Kefir.pool();
 function selectBranch(branch) { branchPool.plug(Kefir.constant(branch)); }
 const activeBranch = branchPool.toProperty(() => example);
+
+const findPath = branch => branch ? _.concat(findPath(branch.parent),branch) : [];
 const path = activeBranch.scan((curPath,nextBranch) => (
-	// the shortest prefix of (path + nextBranch) that terminates with nextBranch
-	_.concat(_.takeWhile(curPath,branch => branch != nextBranch),nextBranch)
+	 _.includes(curPath,nextBranch) ? curPath : findPath(nextBranch)
 ),[]);
 
 const model = Kefir.combine([activeMode, activeBranch, path]);
