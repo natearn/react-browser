@@ -33,21 +33,27 @@ function Path(props) {
 
 function ButtonView(props) {
 	const branches = props.branch.children.map((b) =>
-		<li key={b.name}><button onClick={() => props.select(b)}>{b.name}</button></li>
+		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+			<button onClick={() => props.select(b)}>{b.name}</button>
+		</li>
 	);
 	return <ul>{branches}</ul>;
 }
 
 function LinkView(props) {
 	const branches = props.branch.children.map((b) =>
-		<li key={b.name}><a href="#" onClick={() => props.select(b)}>{b.name}</a></li>
+		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+			<a href="#" onClick={() => props.select(b)}>{b.name}</a>
+		</li>
 	);
 	return <ul>{branches}</ul>;
 }
 
 function ThumbnailView(props) {
 	const branches = props.branch.children.map((b,i) =>
-		<li key={b.name}><img src={b.thumbnail} alt={b.name} onClick={() => props.select(b)} /></li>
+		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+			<img src={b.thumbnail} alt={b.name} onClick={() => props.select(b)} />
+		</li>
 	);
 	return <ul>{branches}</ul>;
 }
