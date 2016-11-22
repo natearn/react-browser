@@ -113,7 +113,7 @@ const activeBranch = branchPool.toProperty(() => example);
 
 const findPath = branch => branch ? _.concat(findPath(branch.parent),branch) : [];
 const path = activeBranch.scan((curPath,nextBranch) => (
-	 _.includes(curPath,nextBranch) ? curPath : findPath(nextBranch)
+	_.includes(curPath,nextBranch) ? curPath : findPath(nextBranch)
 ),[]);
 
 const model = Kefir.combine([activeMode, activeBranch, path]);
