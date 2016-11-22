@@ -14,7 +14,7 @@ function Modes(props) {
 		</button>
 		</li>
 	));
-	return <ul style={{display: "inline"}}>{buttons}</ul>;
+	return <ul style={{display: "inline", margin: "0", padding: "0"}}>{buttons}</ul>;
 }
 
 function Path(props) {
@@ -28,40 +28,40 @@ function Path(props) {
 		</button>
 		</li>
 	));
-	return <ol style={{display: "inline"}}>{buttons}</ol>;
+	return <ol style={{display: "inline", margin: "0", padding: "0"}}>{buttons}</ol>;
 }
 
 function ButtonView(props) {
 	const branches = props.branch.children.map((b) =>
-		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
 			<button onClick={() => props.select(b)}>{b.name}</button>
 		</li>
 	);
-	return <ul>{branches}</ul>;
+	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
 }
 
 function LinkView(props) {
 	const branches = props.branch.children.map((b) =>
-		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
 			<a href="#" onClick={() => props.select(b)}>{b.name}</a>
 		</li>
 	);
-	return <ul>{branches}</ul>;
+	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
 }
 
 function ThumbnailView(props) {
 	const branches = props.branch.children.map((b,i) =>
-		<li key={b.name} style={{display: "inline", margin: "2px"}}>
+		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
 			<img src={b.thumbnail} alt={b.name} onClick={() => props.select(b)} />
 		</li>
 	);
-	return <ul>{branches}</ul>;
+	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
 }
 
 function Browser(props) {
 	return (
-		<div className="browser">
-			<div className="header">
+		<div className="browser" style={{display: "flex", flexDirection: "column", backgroundColor: "darkgrey"}}>
+			<div className="header" style={{display: "flex", justifyContent: "space-between", backgroundColor: "lightgrey", padding: "0.25em"}}>
 				<Path path={props.path} activeBranch={props.activeBranch} select={props.selectBranch} />
 				<Modes modes={props.modes} activeMode={props.activeMode} select={props.selectMode} />
 			</div>
