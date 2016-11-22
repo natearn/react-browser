@@ -59,10 +59,12 @@ function Browser(props) {
 				<Path path={props.path} activeBranch={props.activeBranch} select={props.selectBranch} />
 				<Modes modes={props.modes} activeMode={props.activeMode} select={props.selectMode} />
 			</div>
-			{props.activeMode.component({
-				branch: props.activeBranch,
-				select: props.selectBranch
-			})}
+			<div className="view">
+				{props.activeMode.component({
+					branch: props.activeBranch,
+					select: props.selectBranch
+				})}
+			</div>
 		</div>
 	);
 }
