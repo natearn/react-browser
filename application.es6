@@ -98,6 +98,11 @@ function addParent(tree) {
 	tree.children.map(b => addParent(b));
 }
 addParent(example);
+function addThumb(tree) {
+	tree.thumbnail = "http://placekitten.com/g/64/72"
+	tree.children.map(b => addThumb(b));
+}
+addThumb(example);
 
 const modes = [
 	{name: "Thumbnail", component: ThumbnailView},
