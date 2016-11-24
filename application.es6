@@ -100,13 +100,7 @@ function Browser(props) {
 var example = {name: "tree", children: [
 	{name: "root", children: [
 		{name: "trunk", children: [
-				{name: "branch", children: [
-						{name: "fruit", children: []},
-						{name: "flower", children: []},
-						{name: "leaf", children: []},
-						{name: "stem", children: []}
-					]
-				}
+				{name: "branch", children: (function f(n) { return _.concat((n > 0 ? f(n-1) : []),{name: "obj"+n, children: []}); })(50)}
 			]
 		},
 		{name: "bark", children: [
