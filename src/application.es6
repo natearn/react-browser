@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Kefir from "kefir";
 import _ from "lodash";
+import example from "./sample.es6";
 
 function Modes(props) {
 	const buttons = props.modes.map((mode) => (
@@ -95,29 +96,6 @@ function Browser(props) {
 		</div>
 	);
 }
-
-// create some data to render
-var example = {name: "tree", children: [
-	{name: "root", children: [
-		{name: "trunk", children: [
-				{name: "branch", children: (function f(n) { return _.concat((n > 0 ? f(n-1) : []),{name: "obj"+n, children: []}); })(50)}
-			]
-		},
-		{name: "bark", children: [
-			{name: "bugs", children: []}
-		]}
-	]}
-]};
-function addParent(tree) {
-	tree.children.map(b => b.parent = tree);
-	tree.children.map(b => addParent(b));
-}
-addParent(example);
-function addThumb(tree) {
-	tree.thumbnail = "http://placekitten.com/g/64/72"
-	tree.children.map(b => addThumb(b));
-}
-addThumb(example);
 
 const modes = [
 	{name: "Thumbnail", component: ThumbnailView},
