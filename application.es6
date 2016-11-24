@@ -58,14 +58,35 @@ function ThumbnailView(props) {
 	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
 }
 
+const browserStyles = {
+	browser: {
+		display: "flex",
+		flexDirection: "column",
+		backgroundColor: "darkgrey",
+		height: "100%",
+		width: "100%"
+	},
+	view: {
+		display: "flex",
+		flexGrow: "1",
+		overflowY: "scroll"
+	},
+	header: {
+		display: "flex",
+		flexShrink: "0",
+		justifyContent: "space-between",
+		backgroundColor: "lightgrey",
+		padding: "0.25em"
+	}
+};
 function Browser(props) {
 	return (
-		<div className="browser" style={{display: "flex", flexDirection: "column", backgroundColor: "darkgrey"}}>
-			<div className="header" style={{display: "flex", justifyContent: "space-between", backgroundColor: "lightgrey", padding: "0.25em"}}>
+		<div className="browser" style={browserStyles.browser}>
+			<div className="header" style={browserStyles.header}>
 				<Path path={props.path} activeBranch={props.activeBranch} select={props.selectBranch} />
 				<Modes modes={props.modes} activeMode={props.activeMode} select={props.selectMode} />
 			</div>
-			<div className="view">
+			<div className="view" style={browserStyles.view}>
 				{props.activeMode.component({
 					branch: props.activeBranch,
 					select: props.selectBranch
