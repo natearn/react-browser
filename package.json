@@ -19,7 +19,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify --debug -t [ babelify --presets [ es2015 react ] ] application.es6 > application.js"
+    "build": "browserify --debug -t [ babelify --presets [ es2015 react ] ] src/application.es6 > dist/application.js"
   },
   "keywords": [
     "react"
