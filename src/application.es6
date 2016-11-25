@@ -1,4 +1,6 @@
-import example from "./sample.es6";
+import Kefir from "kefir";
+import sampleStream from "./sample.es6";
 import { runBrowser } from "./interface.es6";
 
-runBrowser(document.getElementById('application'),example);
+let example = sampleStream(5,1);
+example.log().onValue(t => runBrowser(document.getElementById('application'),t));

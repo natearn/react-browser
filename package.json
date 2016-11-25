@@ -16,7 +16,9 @@
     "react": "^15.4.0",
     "react-dom": "^15.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chance": "^1.0.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify --debug -t [ babelify --presets [ es2015 react ] ] src/application.es6 > dist/application.js"
