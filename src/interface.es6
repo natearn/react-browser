@@ -4,7 +4,6 @@ import _ from "lodash";
 import * as Pure from "./components.es6";
 
 // react interface (stateful)
-// TODO: properly update state when new props are received
 class Browser extends React.Component {
 	constructor(props) {
 		super(props);
@@ -27,6 +26,18 @@ class Browser extends React.Component {
 	}
 
 	findPath(branch) { return branch ? _.concat(this.findPath(branch.parent),branch) : []; }
+
+	componentWillReceiveProps(nextProps) {
+		// Since both activeBranch and path reference props, they will need to be updated manually here
+		let nextPath = _.reduce(
+			this.state.path,
+			(p,b) => _.includes(_.last(p).children,b) ? _.concat(p,b) : p,
+			[nextPath.root]
+		);
+		let ab = this.state.activeBranch;
+		let nextBranch = _.includes(nextPath,ab) ? ab : _.last(nextPath);
+		this.setState({path: nextPath, activeBranch: nextBranch});
+	}
 
 	render() {
 		return <Pure.Browser {...this.state} />;
