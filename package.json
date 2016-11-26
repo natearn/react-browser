@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A file browser for anything, but most likely for CMS entities",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natearn/react-browser.git"
+  },
   "directories": {
     "test": "test"
   },
