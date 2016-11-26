@@ -40,7 +40,7 @@ function mutateTree(tree,maxDepth,width) {
 }
 
 function sampleStream(depth,width) {
-	const triggers = Kefir.repeat(i => Kefir.later(rand.natural({min: 1000, max: 5000}),true));
+	const triggers = Kefir.repeat(i => Kefir.later(rand.natural({min: 100, max: 5000}),true));
 	return triggers.scan((t,_) => mutateTree(t,depth,width),genTree(depth,width));
 }
 
