@@ -25,7 +25,7 @@ class Browser extends React.Component {
 		};
 	}
 
-	findPath(branch) { return branch ? _.concat(this.findPath(branch.parent),branch) : []; }
+	findPath(branch) { return branch.parent ? _.concat(this.findPath(branch.parent),branch) : [this.props.root]; }
 
 	componentWillReceiveProps(nextProps) {
 		// Since both activeBranch and path reference props, they will need to be updated manually here
