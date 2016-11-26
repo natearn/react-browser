@@ -32,7 +32,7 @@ class Browser extends React.Component {
 		let nextPath = _.reduce(
 			this.state.path,
 			(p,b) => _.includes(_.last(p).children,b) ? _.concat(p,b) : p,
-			[nextPath.root]
+			[nextProps.root]
 		);
 		let ab = this.state.activeBranch;
 		let nextBranch = _.includes(nextPath,ab) ? ab : _.last(nextPath);
