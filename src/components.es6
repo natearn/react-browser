@@ -8,7 +8,7 @@ function Modes(props) {
 			onClick={() => props.select(mode)}
 			style={{borderStyle: props.activeMode == mode ? "inset" : "outset"}}
 		>
-			{mode.name}
+			{mode.icon}
 		</button>
 		</li>
 	));

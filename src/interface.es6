@@ -2,15 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 import * as Pure from "./components.es6";
+import { ThumbnailIcon } from "./icons.es6";
 
 // react interface (stateful)
 class Browser extends React.Component {
 	constructor(props) {
 		super(props);
 		let modes = [
-			{name: "Thumbnail", component: Pure.ThumbnailView},
-			{name: "Button", component: Pure.ButtonView},
-			{name: "Link", component: Pure.LinkView}
+			{name: "Thumbnail", component: Pure.ThumbnailView, icon: <ThumbnailIcon />},
+			{name: "Button", component: Pure.ButtonView, icon: "B"},
+			{name: "Link", component: Pure.LinkView, icon: "L"}
 		];
 		this.state = {
 			modes: modes,
