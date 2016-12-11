@@ -8,6 +8,10 @@ function genTree(depth,width) {
 		addParent({
 			id:       random.guid(),
 			name:     random.name(),
+			size:     random.natural({min: 10, max: 100000000}),
+			type:     random.pickone(["text","folder","image","video","unknown"]),
+			modified: random.date().toISOString(),
+			details: ["name","size","type","modified"],
 			children: (
 				depth > 0 ?
 				random.n(() => genTree(depth-1,width),random.natural({min: 1, max: width})) :
