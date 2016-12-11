@@ -29,24 +29,6 @@ function Path(props) {
 	return <ol style={{display: "inline", margin: "0", padding: "0"}}>{buttons}</ol>;
 }
 
-function ButtonView(props) {
-	const branches = props.branch.children.map((b) =>
-		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
-			<button onClick={() => props.select(b)}>{b.name}</button>
-		</li>
-	);
-	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
-}
-
-function LinkView(props) {
-	const branches = props.branch.children.map((b) =>
-		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
-			<a href="#" onClick={() => props.select(b)}>{b.name}</a>
-		</li>
-	);
-	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
-}
-
 function ThumbnailView(props) {
 	const branches = props.branch.children.map((b,i) =>
 		<li key={b.name} style={{display: "inline-block", margin: "0.5em"}}>
@@ -54,6 +36,29 @@ function ThumbnailView(props) {
 		</li>
 	);
 	return <ul style={{margin: "0", padding: "0.5em"}}>{branches}</ul>;
+}
+
+function DetailsView(props) {
+	return (
+		<table>
+			<thead>
+				<tr>
+					{props.branch.details.map(k =>
+						<th key={k}>{k}</th>
+					)}
+				</tr>
+			</thead>
+			<tbody>
+				{props.branch.children.map(b =>
+					<tr key={b.name}>
+						{props.branch.details.map(k =>
+							<td key={b.name+"."+k}>{b[k]}</td>
+						)}
+					</tr>
+				)}
+			</tbody>
+		</table>
+	);
 }
 
 const browserStyles = {
@@ -77,6 +82,7 @@ const browserStyles = {
 		padding: "0.25em"
 	}
 };
+
 function Browser(props) {
 	return (
 		<div className="browser" style={browserStyles.browser}>
@@ -99,6 +105,5 @@ export {
 	Modes,
 	Path,
 	ThumbnailView,
-	LinkView,
-	ButtonView
+	DetailsView
 };

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 import * as Pure from "./components.es6";
-import { ThumbnailIcon } from "./icons.es6";
+import { ThumbnailIcon, DetailsIcon } from "./icons.es6";
 
 // react interface (stateful)
 class Browser extends React.Component {
@@ -10,8 +10,7 @@ class Browser extends React.Component {
 		super(props);
 		let modes = [
 			{name: "Thumbnail", component: Pure.ThumbnailView, icon: <ThumbnailIcon />},
-			{name: "Button", component: Pure.ButtonView, icon: "B"},
-			{name: "Link", component: Pure.LinkView, icon: "L"}
+			{name: "Details", component: Pure.DetailsView, icon: <DetailsIcon />}
 		];
 		this.state = {
 			modes: modes,
